@@ -1,0 +1,32 @@
+{% extends "/main/layout.html" %}
+
+{% block body %}
+    
+    <table>
+    <thead>
+        <tr>
+            <th>Encounter ID</th>
+            <th>Patient ID</th>
+            <th>Presenting Complaint</th>
+            <th>Diagnosis</th>
+            <th>Outcome</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for encounter in encounters %}
+        <tr>
+        <td>{{ encounter.id }}</td>
+        <td>{{ encounter.patient_id}}</td>
+        <td>{{ encounter.pc }}</td>
+        <td>{{ encounter.diagnosis }}</td>
+        <td>{{ encounter.outcome }}</td>
+        </tr>
+        {% else %}
+        <tr>
+        <td colspan="3">No encounters found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock %}

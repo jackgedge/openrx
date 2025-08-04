@@ -1,0 +1,28 @@
+{% extends "/main/layout.html" %}
+
+{% macro render_field(field) %}
+  <div style="display: flex; align-items: center; margin-bottom: 1em;">
+    <div>
+      {{ field.label }} {{ field(class_='error-message' if field.errors else '') }}
+    </div>
+    {% if field.errors %}
+      <span style="color: red; margin-left: 10px;">
+        {{ field.errors[0] }}
+      </span>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+
+{% block body %}
+    
+    <form action="{{ url_for('auth.register') }}" method="post">
+        {{ form.csrf_token }}<br>
+        {{ render_field(form.first_name) }}<br>
+        {{ render_field(form.last_name) }}<br>
+        {{ render_field(form.email) }}<br>
+        {{ render_field(form.password) }}
+        {{ form.submit }}
+    </form>
+
+{% endblock %}

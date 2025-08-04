@@ -1,0 +1,67 @@
+{% extends "/main/layout.html" %}
+
+{% macro render_field(field) %}
+  <div style="display: flex; align-items: center; margin-bottom: 1em;">
+    <div>
+      {{ field.label }} {{ field(class_='error' if field.errors else '') }}
+    </div>
+    {% if field.errors %}
+      <span style="color: red; margin-left: 10px;">
+        {{ field.errors[0] }}
+      </span>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% block body %}
+
+<form action="{{ url_for('main.record_encounter') }}" method="post">
+    {{ form.csrf_token }}
+
+    {% for field, errors in form.errors.items() %}
+    {% for error in errors %}
+        <span style="color: red;">{{ error }}</span><br>
+    {% endfor %}
+    {% endfor %}
+
+    <fieldset>
+        <legend>Patient Info</legend>
+        {{ render_field(form.patient_id) }}
+        {{ render_field(form.first_name) }}
+        {{ render_field(form.last_name) }}
+        {{ render_field(form.dob) }}
+    </fieldset>
+
+    <fieldset>
+        <legend>Presenting Complaint</legend>
+        {{ render_field(form.pc) }}
+        {{ render_field(form.hpc) }}
+    </fieldset>
+
+    <fieldset>
+        <legend>Examination</legend>
+        {{ render_field(form.exam) }}
+        {{ render_field(form.hr) }}
+        {{ render_field(form.sbp) }}
+        {{ render_field(form.dbp) }}
+        {{ render_field(form.rr) }}
+        {{ render_field(form.temp) }}
+        {{ render_field(form.cbg) }}
+        {{ render_field(form.gcs_e) }}
+        {{ render_field(form.gcs_v) }}
+        {{ render_field(form.gcs_m) }}
+    </fieldset>
+
+    <fieldset>
+        <legend>Diagnosis and Treatment</legend>
+        {{ render_field(form.diagnosis_1) }}
+        {{ render_field(form.icd_11_1) }}
+        {{ render_field(form.tx) }}
+        {{ render_field(form.outcome) }}
+    </fieldset>
+
+    {{ form.submit }}
+
+</form>
+
+{% endblock %}

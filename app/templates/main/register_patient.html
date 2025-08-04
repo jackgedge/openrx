@@ -1,0 +1,17 @@
+{% extends "/main/layout.html" %}
+
+{% block body %}
+
+    <fieldset>
+        <legend>Patient Info</legend>
+    <form action="{{ url_for('main.register_patient') }}" method="post">
+        {{ form.csrf_token }}
+        {{ form.first_name.label }} {{ form.first_name }}<br>
+        {{ form.last_name.label }} {{ form.last_name }}<br>
+        {{ form.dob.label }} {{ form.dob }}<br>
+        <br>
+        {{ form.submit }}
+    </form>
+    </fieldset>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "/main/layout.html" %}
+
+{% block body %}
+    
+    <form action="{{ url_for('main.register_patient') }}" method="get">
+        <button type="submit">Register Patient</button>
+    </form>
+
+    <form action="{{ url_for('main.record_encounter') }}" method="get">
+        <button type="submit">Record Encounter</button>
+    </form>
+
+    <form action="{{ url_for('main.patients') }}" method="get">
+        <button type="submit">Patients</button>
+    </form>
+
+    <form action="{{ url_for('main.encounters') }}" method="get">
+        <button type="submit">Encounters</button>
+    </form>
+
+    <form action="{{ url_for('auth.logout') }}" method="get">
+        <button type="submit">Log Out</button>
+    </form>
+
+
+
+{% endblock %}
