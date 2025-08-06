@@ -2,6 +2,7 @@
 
 🚧 Under Construction 🚧
 
-A lightweight, flask-based eletronic patient record system. 
-Designed by medics for use in remote, resource-limited settings.
+Designed by medics.
+A lightweight, flask-based eletronic medical record. 
+For remote, resource-limited settings.
 
