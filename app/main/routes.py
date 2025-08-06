@@ -74,12 +74,13 @@ def record_encounter():
             tx = form.tx.data
             outcome = form.tx.data
 
-            # Look-Up Patient ID
-
+            
 
             # Submit encounter
             with Session(engine) as session:
+
                 new_encounter = Encounter(
+                    patient_id=patient_id,
                     pc=pc,
                     hpc=hpc,
                     exam=exam,
@@ -98,14 +99,18 @@ def record_encounter():
                     outcome=outcome
                 )
         
-                session.add(new_encounter)
-                session.commit()
+                patient = session.query(Patient).filter_by(id=patient_id).first()
+                if not patient:
+                    return raise_error(403, "Invalid patient")
+                else: 
+                    session.add(new_encounter)
+                    session.commit()
 
             return redirect(url_for('main.home'))
         return render_template("/main/record_encounter.html", form=form, title="Record Encounter")
     
     else: 
-                return render_template("/main/record_encounter.html", form=form, title="Record Encounter")
+        return render_template("/main/record_encounter.html", form=form, title="Record Encounter")
     
 
 @main_bp.route("/patients", methods=["GET", "POST"])

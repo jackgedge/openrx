@@ -60,6 +60,8 @@ class Encounter(Base):
     icd_11_1: Mapped[str]
     tx: Mapped[str]
     outcome: Mapped[str]
+    def __repr__(self) -> str:
+        return f"Encounter(id={self.id!r}, patient_id={self.patient_id!r}, outcome={self.outcome!r})"
 
 def create_tables(engine):
     Base.metadata.create_all(engine) 
