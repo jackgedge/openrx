@@ -55,3 +55,15 @@ def list():
         return render_template("/patient/list.html", patients=patients, form=form)
 
         
+@patient_bp.route("/view")
+@login_required
+def view():
+    id = request.args.get('id')
+    if not id:
+        abort(404)  # No id provided
+    with Session(engine) as session:
+        patient = session.get(Patient, id)
+        if not patient:
+            abort(404)  # Patient not found
+        encounters = patient.encounters  # Access inside session to load
+    return render_template("/patient/view.html", patient=patient, encounters=encounters)

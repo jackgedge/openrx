@@ -40,6 +40,8 @@ class Patient(Base):
     last_name: Mapped[str] = mapped_column(String(30))
     dob: Mapped[Date] = mapped_column(Date)
 
+    encounters = relationship("Encounter", back_populates="patient")
+
 class Encounter(Base):
     __tablename__ = "encounter"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -60,6 +62,9 @@ class Encounter(Base):
     icd_11_1: Mapped[str]
     tx: Mapped[str]
     outcome: Mapped[str]
+
+    patient = relationship("Patient", back_populates="encounters")
+    
     def __repr__(self) -> str:
         return f"Encounter(id={self.id!r}, patient_id={self.patient_id!r}, outcome={self.outcome!r})"
 
