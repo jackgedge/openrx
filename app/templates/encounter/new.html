@@ -15,7 +15,7 @@
 
 {% block body %}
 
-<form action="{{ url_for('main.record_encounter') }}" method="post">
+<form action="{{ url_for('encounter.new') }}" method="post">
     {{ form.csrf_token }}
 
     {% for field, errors in form.errors.items() %}

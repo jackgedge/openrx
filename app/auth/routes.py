@@ -49,10 +49,13 @@ def register():
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+
+    form = UserLoginForm()
+
     if request.method == "POST":
 
-        username = request.form.get("username")
-        password = request.form.get("password")
+        username = form.username.data
+        password = form.password.data
 
         def verify_user_login(username, password):
             with Session(engine) as session:
@@ -63,6 +66,7 @@ def login():
                 return None
                 
         user = verify_user_login(username=username, password=password)
+        
         if user is None:
             return raise_error(404, "Invalid Credentials")
         else:
@@ -70,7 +74,7 @@ def login():
             return redirect(url_for("main.home"))
 
     else:
-        return render_template("auth/login.html", title="Log In")
+        return render_template("auth/login.html", form=form, title="Log In")
 
 
 @auth_bp.route("/logout")
@@ -78,6 +82,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
+
 
 
 

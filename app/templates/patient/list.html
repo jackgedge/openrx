@@ -1,0 +1,48 @@
+{% extends "/patient/layout.html" %}
+
+{% block body %}
+<div class="section">
+    <fieldset>
+        <legend>Filter</legend>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.patient_id.label }} {{ form.patient_id }} <br>
+                {{ form.first_name.label }} {{ form.first_name(size=20) }} <br>
+                {{ form.last_name.label }} {{ form.last_name(size=20) }}<br>
+                {{ form.dob.label }} {{ form.dob }} <br>
+                {{ form.submit() }}
+            </form>
+    </fieldset>
+</div>
+
+<div class="section">
+    <fieldset>
+        <legend>List</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.id }}</td>
+                    <td>{{ patient.first_name }}</td>
+                    <td>{{ patient.last_name }}</td>
+                    <td>{{ patient.dob }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                <td colspan="3">No patients found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+
+{% endblock %}

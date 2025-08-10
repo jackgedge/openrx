@@ -4,7 +4,9 @@ from app.extensions import engine
 from .extensions import engine, login_manager
 from .auth import auth_bp
 from .main import main_bp
-from app.models import *  # where your User class is defined
+from .patient import patient_bp
+from .encounter import encounter_bp
+from app.models import *  
 
 def create_app():
     app = Flask(__name__)
@@ -20,6 +22,8 @@ def create_app():
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
+    app.register_blueprint(patient_bp)
+    app.register_blueprint(encounter_bp)
 
     create_tables(engine=engine)
 

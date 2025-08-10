@@ -2,19 +2,19 @@
 
 {% block body %}
     
-    <form action="{{ url_for('main.register_patient') }}" method="get">
+    <form action="{{ url_for('patient.register') }}" method="get">
         <button type="submit">Register Patient</button>
     </form>
 
-    <form action="{{ url_for('main.record_encounter') }}" method="get">
+    <form action="{{ url_for('encounter.new') }}" method="get">
         <button type="submit">Record Encounter</button>
     </form>
 
-    <form action="{{ url_for('main.patients') }}" method="get">
+    <form action="{{ url_for('patient.list') }}" method="get">
         <button type="submit">Patients</button>
     </form>
 
-    <form action="{{ url_for('main.encounters') }}" method="get">
+    <form action="{{ url_for('encounter.list') }}" method="get">
         <button type="submit">Encounters</button>
     </form>
 
