@@ -3,8 +3,10 @@ from wtforms import StringField, SubmitField, TextAreaField, IntegerField, Decim
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Length, NumberRange, ValidationError
 from sqlalchemy.orm import Session
+
 from app.extensions import engine
 from app.models import Patient
+
 
 class PatientEncounterForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired(), Length(min=1, max=25)])

@@ -18,16 +18,17 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Date (if you have one)</th>
                 <th>PC</th>
                 <th>Diagnosis</th>
                 <th>Outcome</th>
-                <th>Date (if you have one)</th>
             </tr>
         </thead>
         <tbody>
         {% for encounter in patient.encounters %}
             <tr>
                 <td>{{ encounter.id }}</td>
+                <td>{{ encounter.created_at }}</td>
                 <td>{{ encounter.pc }}</td>
                 <td>{{ encounter.diagnosis_1 }}</td>
                 <td>{{ encounter.outcome }}</td>

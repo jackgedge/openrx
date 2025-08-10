@@ -65,5 +65,5 @@ def view():
         patient = session.get(Patient, id)
         if not patient:
             abort(404)  # Patient not found
-        encounters = patient.encounters  # Access inside session to load
+        encounters = patient.encounters  # Access encounters
     return render_template("/patient/view.html", patient=patient, encounters=encounters)

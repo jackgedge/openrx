@@ -46,10 +46,10 @@ nav ul li a:hover {
   text-align: center;
 }
 
-/* Force each section to take up the full width and start on a new line */
-.section {
-    display: block;
-    width: 100%;
-    clear: both;
-    margin-bottom: 2rem;
+.section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;   /* optional: limit width so it doesn't look stretched */
+    margin: 0 auto;     /* this centers the form horizontally */
 }

@@ -1,6 +1,5 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import logout_user, login_required, login_user
-from werkzeug.security import generate_password_hash
 from app.auth.helpers import *
 from .forms import *
 from app.models import *
@@ -36,8 +35,6 @@ def new():
             icd_11_1 = form.icd_11_1.data
             tx = form.tx.data
             outcome = form.tx.data
-
-            
 
             # Submit encounter
             with Session(engine) as session:

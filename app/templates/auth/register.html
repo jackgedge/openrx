@@ -1,29 +1,30 @@
 {% extends "/auth/layout.html" %}
 
-{% macro render_field(field) %}
-  <div style="display: flex; align-items: center; margin-bottom: 1em;">
-    <div>
-      {{ field.label }} {{ field(class_='error-message' if field.errors else '') }}
-    </div>
-    {% if field.errors %}
-      <span style="color: red; margin-left: 10px;">
-        {{ field.errors[0] }}
-      </span>
-    {% endif %}
-  </div>
-{% endmacro %}
 
 
 {% block body %}
-    
+
+{% import 'macros/forms.html' as forms %}
+
+<div class="section">
+  <fieldset>
+    <legend>Registration Details</legend>
     <form action="{{ url_for('auth.register') }}" method="post">
-        {{ form.csrf_token }}<br>
-        {{ render_field(form.first_name) }}<br>
-        {{ render_field(form.last_name) }}<br>
-        {{ render_field(form.email) }}<br>
-        {{ render_field(form.password) }}
-        {{ render_field(form.confirm_password)}}
-        {{ form.submit }}
+      {{ form.csrf_token }}
+      <table>
+        {{ forms.render_field(form.first_name) }}
+        {{ forms.render_field(form.last_name) }}
+        {{ forms.render_field(form.email) }}
+        {{ forms.render_field(form.password) }}
+        {{ forms.render_field(form.confirm_password) }}
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            {{ form.submit }}
+          </td>
+        </tr>
+      </table>
     </form>
+  </fieldset>
+</div>
 
 {% endblock %}

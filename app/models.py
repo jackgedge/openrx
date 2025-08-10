@@ -1,5 +1,6 @@
 from typing import List
-from sqlalchemy import ForeignKey, String, Date
+from datetime import datetime
+from sqlalchemy import ForeignKey, String, Date, DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from flask_login import UserMixin
 
@@ -62,9 +63,11 @@ class Encounter(Base):
     icd_11_1: Mapped[str]
     tx: Mapped[str]
     outcome: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
 
     patient = relationship("Patient", back_populates="encounters")
-    
+
     def __repr__(self) -> str:
         return f"Encounter(id={self.id!r}, patient_id={self.patient_id!r}, outcome={self.outcome!r})"
 

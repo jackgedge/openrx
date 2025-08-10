@@ -1,17 +1,44 @@
 {% extends "/patient/layout.html" %}
 
+{% macro render_field(field) %}
+<tr>
+    <td style="text-align: right; padding-right: 1em;">
+        {{ field.label }}
+    </td>
+    <td>
+        {{ field }}
+        {% if field.errors %}
+            <br>
+            <span style="color: red;">{{ field.errors[0] }}</span>
+        {% endif %}
+    </td>
+</tr>
+{% endmacro %}
+
+
 {% block body %}
 
+{% import 'macros/forms.html' as forms %}
+
+<div class="section">
     <fieldset>
         <legend>Patient Info</legend>
-    <form action="{{ url_for('patient.register') }}" method="post">
+        <form action="{{ url_for('patient.register') }}" method="post">
         {{ form.csrf_token }}
-        {{ form.first_name.label }} {{ form.first_name }}<br>
-        {{ form.last_name.label }} {{ form.last_name }}<br>
-        {{ form.dob.label }} {{ form.dob }}<br>
+        <table>
+            {{ forms.render_field(form.first_name) }}
+            {{ forms.render_field(form.last_name) }}
+            {{ forms.render_field(form.dob) }}
+            <tr>
+            <td colspan="2" style="text-align: center;">
+            {{ form.submit }}
+            </td>
+            </tr>
+        </table>
         <br>
-        {{ form.submit }}
-    </form>
+        </form>
     </fieldset>
+</div>
+
 
 {% endblock %}

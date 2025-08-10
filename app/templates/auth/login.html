@@ -15,12 +15,18 @@
 
 
 {% block body %}
-    
-    <form action="{{ url_for('auth.login') }}" method="post">
+<div class="section">
+    <fieldset>
+      <legend>Log In</legend>
+        <form action="{{ url_for('auth.login') }}" method="post">
         {{ form.csrf_token }}<br>
         {{ render_field(form.username) }}<br>
         {{ render_field(form.password) }}
         {{ form.submit }}
-    </form>
+        Not Registered? <a href="{{ url_for('auth.register') }}">Register</a>
+        </form>
+    </fieldset>
+</div>
+
 {% endblock %}
 
