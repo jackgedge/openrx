@@ -46,7 +46,7 @@ nav ul li a:hover {
   text-align: center;
 }
 
-.section form {
+.section .filter form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,3 +54,25 @@ nav ul li a:hover {
     margin: 0 auto;     /* this centers the form horizontally */
 }
 
+/* Table styling */
+table {
+  border-collapse: collapse;       /* Makes borders single instead of double */
+  width: 100%;                      /* Optional: makes the table full width */
+}
+
+th, td {
+  border: 1px solid black;          /* Solid black border for all cells */
+  padding: 8px;                     /* Space around text inside cells */
+  text-align: left;                 /* Adjust alignment if you want center, right, etc. */
+}
+
+/* Optional: zebra stripes for readability */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Optional: header styling */
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
