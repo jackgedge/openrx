@@ -42,6 +42,7 @@ class Patient(Base):
     dob: Mapped[Date] = mapped_column(Date)
 
     encounters = relationship("Encounter", back_populates="patient")
+    notes = relationship("Note", back_populates="patient")
 
 class Encounter(Base):
     __tablename__ = "encounter"
@@ -77,6 +78,8 @@ class Note(Base):
     note: Mapped[str]
     author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    patient = relationship("Patient", back_populates="notes")
 
     def __repr__(self) -> str:
         return f"Note(id={self.id!r}, patient_id={self.patient_id!r}, note={self.note!r}, author_id={self.author_id!r}, created_at={self.created_at!r})"

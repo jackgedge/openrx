@@ -61,7 +61,9 @@
 <div class="section">
     <fieldset>
     <legend>Notes</legend>
-    <a href="{{ url_for('note.new') }}">New Note</a>
+        <form action="{{ url_for('note.new', patient_id=patient.id) }}" method="post">
+            <button type="submit">New Note</button>
+        </form> 
         <table>
             <thead>
                 <tr>
@@ -75,7 +77,7 @@
                 <tr>
                     <td>{{ note.created_at }}</td>
                     <td>{{ note.author_id }}</td>
-                    <td>{{ note.contents }}</td>
+                    <td>{{ note.note }}</td>
                 </tr>
             </tbody>
         </table>

@@ -4,6 +4,7 @@ from app.auth.helpers import *
 from app.models import *
 from app.patient import patient_bp
 from app.patient.forms import *
+from sqlalchemy.orm import selectinload
 
 @patient_bp.route("/register", methods=["GET", "POST"])
 @login_required
@@ -62,8 +63,9 @@ def view():
     if not id:
         abort(404)  # No id provided
     with Session(engine) as session:
-        patient = session.get(Patient, id)
+        patient = session.query(Patient).options(selectinload(Patient.encounters)).filter_by(id=id).first()
         if not patient:
             abort(404)  # Patient not found
-        encounters = patient.encounters  # Access encounters
-    return render_template("/patient/view.html", patient=patient, encounters=encounters)
+        encounters = patient.encounters  # will be loaded eagerly now
+        notes = patient.notes
+    return render_template("/patient/view.html", patient=patient, encounters=encounters, notes=notes)

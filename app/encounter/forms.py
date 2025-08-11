@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, DecimalField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import InputRequired, Length, NumberRange, ValidationError, Optional
+from sqlalchemy import DateTime, Column
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from app.extensions import engine
 from app.models import Patient

@@ -8,7 +8,6 @@ from app.extensions import *
 from app.models import *
 
 class NoteForm(FlaskForm):
-    patient_id = IntegerField("Patient ID", validators=[InputRequired()])
     note = TextAreaField("Note", validators=[InputRequired()])
-    author = IntegerField("Author", validators=[InputRequired()])
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     submit = SubmitField("Save")
