@@ -1,12 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, DecimalField
 from wtforms.fields.html5 import DateField
-from wtforms.validators import InputRequired, Length, NumberRange, ValidationError
+from wtforms.validators import InputRequired, Length, NumberRange, ValidationError, Optional
 from sqlalchemy.orm import Session
 
 from app.extensions import engine
 from app.models import Patient
-
 
 class PatientEncounterForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired(), Length(min=1, max=25)])
@@ -41,3 +40,9 @@ class PatientEncounterForm(FlaskForm):
             ).first()
             if not patient:
                 raise ValidationError("No matching patient found.")
+            
+class EncounterFilterForm(FlaskForm):
+    patient_id = IntegerField('Patient ID', validators=[Optional()])
+    first_name = StringField('First Name', validators=[Optional()])
+    last_name = StringField('Last Name', validators=[Optional()])
+    submit = SubmitField('Filter')

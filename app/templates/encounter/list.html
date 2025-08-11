@@ -1,32 +1,52 @@
 {% extends "/encounter/layout.html" %}
 
 {% block body %}
-    
-    <table>
-    <thead>
-        <tr>
-            <th>Encounter ID</th>
-            <th>Patient ID</th>
-            <th>Presenting Complaint</th>
-            <th>Diagnosis</th>
-            <th>Outcome</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for encounter in encounters %}
-        <tr>
-        <td>{{ encounter.id }}</td>
-        <td>{{ encounter.patient_id}}</td>
-        <td>{{ encounter.pc }}</td>
-        <td>{{ encounter.diagnosis }}</td>
-        <td>{{ encounter.outcome }}</td>
-        </tr>
-        {% else %}
-        <tr>
-        <td colspan="3">No encounters found.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+
+<div class="section">
+    <fieldset>
+        <legend>Filter</legend>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.patient_id.label }} {{ form.patient_id }} <br>
+                {{ form.first_name.label }} {{ form.first_name(size=20) }} <br>
+                {{ form.last_name.label }} {{ form.last_name(size=20) }}<br>
+                {{ form.submit() }}
+            </form>
+    </fieldset>
+</div>
+
+<div class="section">
+    <fieldset>
+        <legend>List</legend>
+        <table>
+        <thead>
+            <tr>
+                <th>Encounter ID</th>
+                <th>Timestamp</th>
+                <th>Patient ID</th>
+                <th>Presenting Complaint</th>
+                <th>Diagnosis</th>
+                <th>Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for encounter in encounters %}
+            <tr>
+            <td>{{ encounter.id }}</td> 
+            <td>{{ encounter.created_at }}</td>
+            <td><a href="{{ url_for('patient.view', id=encounter.patient_id) }}">{{ encounter.patient_id }}</a></td>
+            <td>{{ encounter.pc }}</td>
+            <td>{{ encounter.diagnosis }}</td>
+            <td>{{ encounter.outcome }}</td>
+            </tr>
+            {% else %}
+            <tr>
+            <td colspan="3">No encounters found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </fieldset>
+</div>
 
 {% endblock %}

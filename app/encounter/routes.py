@@ -34,7 +34,7 @@ def new():
             diagnosis_1 = form.diagnosis_1.data
             icd_11_1 = form.icd_11_1.data
             tx = form.tx.data
-            outcome = form.tx.data
+            outcome = form.outcome.data
 
             # Submit encounter
             with Session(engine) as session:
@@ -77,6 +77,27 @@ def new():
 @encounter_bp.route("/list", methods=["GET", "POST"])
 @login_required
 def list():
-     with Session(engine) as session:
-          encounters = session.query(Encounter).all()
-          return render_template("/encounter/list.html", encounters=encounters)
+     
+    form = EncounterFilterForm()
+
+    with Session(engine) as session:
+        query = session.query(Encounter)
+
+        if form.validate_on_submit():
+            # Filter by patient_id (no join needed)
+            if form.patient_id.data:
+                query = query.filter(Encounter.patient_id == form.patient_id.data)
+
+            # Only join Patient once for name-based filters
+            if form.first_name.data or form.last_name.data:
+                query = query.join(Patient)
+
+            if form.first_name.data:
+                query = query.filter(Patient.first_name.ilike(f"%{form.first_name.data}%"))
+
+            if form.last_name.data:
+                query = query.filter(Patient.last_name.ilike(f"%{form.last_name.data}%"))
+
+        encounters = query.all()
+
+    return render_template("encounter/list.html", form=form, encounters=encounters)

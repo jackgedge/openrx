@@ -65,11 +65,21 @@ class Encounter(Base):
     outcome: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-
     patient = relationship("Patient", back_populates="encounters")
 
     def __repr__(self) -> str:
         return f"Encounter(id={self.id!r}, patient_id={self.patient_id!r}, outcome={self.outcome!r})"
+
+class Note(Base):
+    __tablename__ = "note"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    patient_id: Mapped[int] = mapped_column(ForeignKey("patient.id"))
+    note: Mapped[str]
+    author_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f"Note(id={self.id!r}, patient_id={self.patient_id!r}, note={self.note!r}, author_id={self.author_id!r}, created_at={self.created_at!r})"
 
 def create_tables(engine):
     Base.metadata.create_all(engine) 

@@ -6,6 +6,7 @@ from .auth import auth_bp
 from .main import main_bp
 from .patient import patient_bp
 from .encounter import encounter_bp
+from .note import note_bp
 from app.models import *  
 
 def create_app():
@@ -24,6 +25,7 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(patient_bp)
     app.register_blueprint(encounter_bp)
+    app.register_blueprint(note_bp)
 
     create_tables(engine=engine)
 
